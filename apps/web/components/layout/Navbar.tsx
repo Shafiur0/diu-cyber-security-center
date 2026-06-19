@@ -49,6 +49,7 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'Members', href: '/members' },
+    { label: 'Blogs', href: '/blogs' },
     { label: 'Achievements', href: '/achievements' },
     { label: 'Events', href: '/events' },
     { label: 'Resources', href: '/resources' },
@@ -81,7 +82,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav links */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -102,7 +103,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Right items */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             {status === 'authenticated' ? (
               <>
                 {/* Notifications Bell */}
@@ -182,7 +183,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="lg:hidden flex items-center space-x-2">
             {status === 'authenticated' && (
               <button
                 onClick={() => setShowNotifDropdown(!showNotifDropdown)}
@@ -209,7 +210,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-20 bg-black/95 z-40 flex flex-col px-6 py-8 space-y-6 border-t border-primary/10 transition-transform duration-300">
+        <div className="lg:hidden fixed inset-0 top-20 bg-black/95 z-40 flex flex-col px-6 py-8 space-y-6 border-t border-primary/10 transition-transform duration-300">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link

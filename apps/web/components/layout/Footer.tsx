@@ -13,10 +13,11 @@ export default function Footer() {
           {/* Column 1: Info */}
           <div className="space-y-6">
             <Link href="/" className="flex items-center space-x-2">
-              <svg className="w-8 h-8 text-primary" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" stroke="#FF4B4B" strokeWidth="6" fill="rgba(255, 75, 75, 0.05)" />
-                <circle cx="50" cy="50" r="10" fill="#FF4B4B" />
-              </svg>
+              <img
+                src="/logo.png"
+                alt="CSC DIU Logo"
+                className="w-8 h-8 object-contain"
+              />
               <span className="font-display font-extrabold text-lg text-accent-white">CSC · DIU</span>
             </Link>
             <p className="text-sm text-text-muted leading-relaxed">
@@ -41,7 +42,7 @@ export default function Footer() {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {['Home', 'Members', 'Achievements', 'Events', 'Resources', 'Alumni'].map((item) => (
+              {['Home', 'Members', 'Blogs', 'Achievements', 'Events', 'Resources', 'Alumni'].map((item) => (
                 <li key={item}>
                   <Link
                     href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
