@@ -833,7 +833,7 @@ export default function HomePage() {
                 <div>
                   <h4 className="text-xs font-mono font-bold text-primary uppercase tracking-wider">Location Address</h4>
                   <p className="text-sm text-text-primary/80 mt-1 leading-relaxed">
-                    Cyber Security Lab (Room 402, Level 4)<br />
+                    Cyber Security Lab (Level 6)<br />
                     Academic Block 2, Daffodil Smart City<br />
                     Birulia, Savar, Dhaka, Bangladesh
                   </p>
