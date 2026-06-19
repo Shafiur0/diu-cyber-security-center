@@ -806,6 +806,79 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 16. Location & Headquarters map */}
+      <section id="location" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/5">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span className="text-xs font-mono text-primary uppercase tracking-widest block">// Laboratory Coordinates</span>
+          <h2 className="font-display font-black text-3xl sm:text-4xl text-accent-white uppercase tracking-wider">
+            Visit Our Headquarters
+          </h2>
+          <p className="text-text-primary/70 text-sm">
+            Our state-of-the-art Cyber Security Lab is located at Daffodil Smart City. Stop by for hands-on CTF runs, seminars, or to coordinate with our student mentors.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Contact Details Card */}
+          <div className="glass-card p-8 space-y-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full border-b border-l border-primary/10" />
+            <h3 className="font-display font-bold text-xl text-accent-white">CSC Lab Information</h3>
+            
+            <div className="space-y-4">
+              <div className="flex items-start space-x-4">
+                <div className="p-2.5 bg-primary/10 border border-primary/20 rounded-lg text-primary mt-1">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-mono font-bold text-primary uppercase tracking-wider">Location Address</h4>
+                  <p className="text-sm text-text-primary/80 mt-1 leading-relaxed">
+                    Cyber Security Lab (Room 402, Level 4)<br />
+                    Academic Block 2, Daffodil Smart City<br />
+                    Birulia, Savar, Dhaka, Bangladesh
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="p-2.5 bg-primary/10 border border-primary/20 rounded-lg text-primary mt-1">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-mono font-bold text-primary uppercase tracking-wider">Operational Hours</h4>
+                  <p className="text-sm text-text-primary/80 mt-1 leading-relaxed">
+                    Sunday - Thursday: 09:00 AM - 05:00 PM<br />
+                    Friday - Saturday: Closed (Lab access via prior admin approval only)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="p-2.5 bg-primary/10 border border-primary/20 rounded-lg text-primary mt-1">
+                  <Shield className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-mono font-bold text-primary uppercase tracking-wider">Lab Access Security Clearance</h4>
+                  <p className="text-sm text-text-primary/80 mt-1 leading-relaxed">
+                    Open to all registered DIU students. Trainees must present their digital DIU CSC Identity Card at the entrance scanner.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Google Map iframe container */}
+          <div className="glass-card overflow-hidden rounded-2xl border border-primary/20 h-[380px] relative group shadow-[0_0_20px_rgba(255,75,75,0.05)] hover:shadow-[0_0_30px_rgba(255,75,75,0.15)] transition-all duration-500">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.37533658514!2d90.31818277591662!3d23.87631317424696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c23d069d568b%3A0x677ea3eb6cfcf923!2sDaffodil%20International%20University!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+              className="w-full h-full border-0 grayscale invert opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
