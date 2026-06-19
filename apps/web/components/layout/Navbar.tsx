@@ -210,7 +210,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 top-20 bg-black/95 z-40 flex flex-col px-6 py-8 space-y-6 border-t border-primary/10 transition-transform duration-300">
+        <div className="lg:hidden fixed inset-0 top-20 bg-[#0D0D0D] backdrop-blur-xl z-50 flex flex-col px-6 py-8 space-y-6 border-t border-primary/10 transition-transform duration-300">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link

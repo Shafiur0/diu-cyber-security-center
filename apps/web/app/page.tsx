@@ -456,7 +456,7 @@ export default function HomePage() {
 
           <div className="glass-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full min-w-[700px] text-left border-collapse">
                 <thead>
                   <tr className="border-b border-white/10 bg-white/2 text-xs font-display font-bold text-accent-white uppercase tracking-wider">
                     <th className="p-4">Rank</th>
