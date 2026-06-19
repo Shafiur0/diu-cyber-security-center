@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #FF4B4B;
+  --color-primary-dim: #CC2E2E;
+  --color-bg-base: #0D0D0D;
+  --color-bg-card: #141414;
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 75, 75, 0.15);
+  --color-text-primary: #F0F0F0;
+  --color-text-muted: #6B7280;
+  --color-accent-white: #FFFFFF;
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  --background: #0D0D0D;
+  --foreground: #F0F0F0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Cyberpunk Styles */
+.cyber-grid {
+  background-image: linear-gradient(rgba(255, 75, 75, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 75, 75, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.glass-card {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 75, 75, 0.15);
+  border-radius: 12px;
+  transition: all 0.30s ease-in-out;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 75, 75, 0.35);
+  box-shadow: 0 0 20px rgba(255, 75, 75, 0.1);
+}
+
+.neon-glow {
+  text-shadow: 0 0 8px rgba(255, 75, 75, 0.6), 0 0 20px rgba(255, 75, 75, 0.3);
+}
+
+.neon-border-glow {
+  box-shadow: 0 0 15px rgba(255, 75, 75, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2D2D2D;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF4B4B;
+}
+
+/* scanline animation */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.cyber-scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-scanline::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

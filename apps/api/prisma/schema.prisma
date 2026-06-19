@@ -1,0 +1,291 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// ─── CORE MODELS ─────────────────────────────────────────────
+
+model User {
+  id                String              @id @default(cuid())
+  email             String              @unique
+  phone             String?             @unique
+  passwordHash      String?
+  role              String              @default("STUDENT")
+  isActive          Boolean             @default(true)
+  isBanned          Boolean             @default(false)
+  twoFactorEnabled  Boolean             @default(false)
+  twoFactorSecret   String?
+  emailVerified     DateTime?
+  phoneVerified     DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  lastLoginAt       DateTime?
+  lastLoginIp       String?
+
+  profile           Profile?
+  sessions          Session[]
+  achievements      Achievement[]
+  eventRegistrations EventRegistration[]
+  notifications     Notification[]
+  activityLogs      ActivityLog[]
+  auditLogs         AuditLog[]
+  membershipCard    MembershipCard?
+  certificates      Certificate[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Profile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  fullName        String
+  studentId       String?   @unique
+  batch           String?
+  department      String?
+  bio             String?
+  avatarUrl       String?
+  resumeUrl       String?
+  portfolioUrl    String?
+  bannerUrl       String?
+  
+  // Skills stored as comma-separated string
+  skills          String    @default("")
+  
+  // Social Links
+  facebook        String?
+  linkedin        String?
+  github          String?
+  twitter         String?
+  website         String?
+  hackTheBox      String?
+  tryHackMe       String?
+  hackerOne       String?
+  bugcrowd        String?
+  ctfTime         String?
+  
+  // Platform Rankings (auto-fetched or self-reported)
+  htbRank         String?
+  htbPoints       Int?      @default(0)
+  thmRank         String?
+  thmPoints       Int?      @default(0)
+  ctfScore        Int?      @default(0)
+  
+  // Computed score for leaderboard
+  totalScore      Int?      @default(0)
+  
+  isAlumni        Boolean   @default(false)
+  graduationBatch String?
+  currentCompany  String?
+  currentPosition String?
+  successStory    String?
+  
+  // Faculty specific
+  designation     String?
+  expertise       String    @default("")
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Achievement {
+  id              String              @id @default(cuid())
+  userId          String
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  title           String
+  type            String              // "certification", "ctf", "bug_bounty", "research", "competition", "rank"
+  platform        String?
+  description     String
+  proofUrl        String?             // Cloudinary URL
+  proofPublicId   String?
+  
+  status          String              @default("PENDING")
+  verifiedById    String?
+  verifiedAt      DateTime?
+  rejectionReason String?
+  
+  // Achievement metadata
+  issuer          String?
+  issueDate       DateTime?
+  expiryDate      DateTime?
+  credentialId    String?
+  credentialUrl   String?
+  
+  badgeTier       String?
+  points          Int?                @default(0)
+  
+  isFeatured      Boolean             @default(false)
+  
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+}
+
+model Event {
+  id              String              @id @default(cuid())
+  title           String
+  slug            String              @unique
+  description     String
+  type            String
+  bannerUrl       String?
+  
+  startDate       DateTime
+  endDate         DateTime
+  venue           String?
+  isOnline        Boolean             @default(false)
+  meetingLink     String?
+  
+  maxParticipants Int?
+  registrationDeadline DateTime?
+  
+  isPublished     Boolean             @default(false)
+  isFeatured      Boolean             @default(false)
+  
+  creatorId       String
+  
+  registrations   EventRegistration[]
+  certificates    Certificate[]
+  
+  tags            String    @default("")
+  
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+}
+
+model EventRegistration {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  eventId         String
+  event           Event     @relation(fields: [eventId], references: [id])
+  
+  registeredAt    DateTime  @default(now())
+  attended        Boolean   @default(false)
+  
+  @@unique([userId, eventId])
+}
+
+model Notice {
+  id              String          @id @default(cuid())
+  title           String
+  slug            String          @unique
+  content         String
+  category        String          @default("GENERAL")
+  isPublished     Boolean         @default(false)
+  isPinned        Boolean         @default(false)
+  isUrgent        Boolean         @default(false)
+  publishedAt     DateTime?
+  expiresAt       DateTime?
+  authorId        String
+  attachmentUrl   String?
+  viewCount       Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Resource {
+  id              String    @id @default(cuid())
+  title           String
+  description     String
+  type            String    // "learning_path", "ctf_platform", "blog", "research", "roadmap", "video", "tool"
+  url             String
+  thumbnailUrl    String?
+  tags            String    @default("")
+  isPublished     Boolean   @default(false)
+  isFeatured      Boolean   @default(false)
+  authorId        String
+  viewCount       Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model GalleryItem {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  publicId    String
+  category    String    // "workshop", "competition", "seminar", "industry_visit"
+  eventId     String?
+  uploadedById String
+  createdAt   DateTime  @default(now())
+}
+
+model Certificate {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  eventId         String?
+  event           Event?    @relation(fields: [eventId], references: [id])
+  type            String    // "participation", "completion", "achievement", "membership"
+  title           String
+  issuedAt        DateTime  @default(now())
+  certificateUrl  String?
+  verificationCode String   @unique @default(cuid())
+}
+
+model MembershipCard {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id])
+  cardNumber      String    @unique
+  qrCode          String
+  issuedAt        DateTime  @default(now())
+  expiresAt       DateTime?
+  isActive        Boolean   @default(true)
+}
+
+model Notification {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  title       String
+  body        String
+  type        String    // "achievement", "notice", "event", "system"
+  isRead      Boolean   @default(false)
+  actionUrl   String?
+  createdAt   DateTime  @default(now())
+}
+
+model ActivityLog {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  action      String
+  metadata    String?
+  ip          String?
+  userAgent   String?
+  createdAt   DateTime  @default(now())
+}
+
+model AuditLog {
+  id          String    @id @default(cuid())
+  actorId     String
+  actor       User      @relation(fields: [actorId], references: [id])
+  action      String
+  targetType  String
+  targetId    String
+  before      String?
+  after       String?
+  ip          String?
+  createdAt   DateTime  @default(now())
+}
+
+model SiteConfig {
+  id          String    @id @default(cuid())
+  key         String    @unique
+  value       String
+  updatedById String?
+  updatedAt   DateTime  @updatedAt
+}

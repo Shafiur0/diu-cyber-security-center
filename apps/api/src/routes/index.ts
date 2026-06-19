@@ -1,0 +1,32 @@
+import { Router } from 'express';
+import { authRouter } from './auth';
+import { usersRouter } from './users';
+import { profilesRouter } from './profiles';
+import { achievementsRouter } from './achievements';
+import { eventsRouter } from './events';
+import { noticesRouter } from './notices';
+import { leaderboardRouter } from './leaderboard';
+import { resourcesRouter } from './resources';
+import { aiRouter } from './ai';
+import { galleryRouter } from './gallery';
+import { notificationsRouter } from './notifications';
+import { configRouter } from './config';
+import { adminRouter } from './admin';
+import { certificatesRouter } from './certificates';
+
+export const apiRouter = Router();
+
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/users', usersRouter);
+apiRouter.use('/profiles', profilesRouter);
+apiRouter.use('/achievements', achievementsRouter);
+apiRouter.use('/events', eventsRouter);
+apiRouter.use('/notices', noticesRouter);
+apiRouter.use('/leaderboard', leaderboardRouter);
+apiRouter.use('/resources', resourcesRouter);
+apiRouter.use('/ai', aiRouter);
+apiRouter.use('/gallery', galleryRouter);
+apiRouter.use('/notifications', notificationsRouter);
+apiRouter.use('/config', configRouter);
+apiRouter.use('/admin', adminRouter);
+apiRouter.use('/certificates', certificatesRouter);
