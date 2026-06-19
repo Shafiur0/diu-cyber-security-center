@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build -w web",
+  "buildCommand": "npm run build -w @csc-diu/api && npm run build -w web",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs"
 }
